@@ -13,26 +13,31 @@ namespace LinqSample
         {
             List<int> list = new List<int>() {1,2,3,4,5,6 };
 
-            var querySyntax = from obj in list
-                              where obj > 2
-                              select obj;
-
-            foreach (var item in querySyntax)
+            List<Employee> employees = new List<Employee>()
             {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("...................");
-            var methodSyntax = list.Where(obj => obj > 2);
-            foreach(var item in methodSyntax)
+                new Employee(){Id=1, Name="Tom"},
+                new Employee(){Id=2, Name="John" }
+
+            };
+
+            //IEnumerable<Employee> query = from emp in employees
+            //                              where emp.Id == 2
+            //                              select emp;
+
+            IQueryable<Employee> query1 = employees.AsQueryable().Where(x => x.Id == 1);
+
+            foreach(var item in query1)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("ID = "+ item.Id + " And Name = " + item.Name);
             }
 
-            Console.WriteLine("..................");
-            var maxedSyntax = (from obj in list select obj).Max();
-
-            Console.WriteLine("Max Value: " + maxedSyntax);
             Console.ReadLine();
         }
+        class Employee
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+    
     }
 } 
