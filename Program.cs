@@ -12,36 +12,18 @@ namespace LinqSample
     {
         static void Main(string[] args)
         {
-            List<Employee> employees = new List<Employee>()
+            var dataSource = new List<int>() { 100, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+
+            var querySyntax = (from num in dataSource
+                               select num).ToList();
+
+            var methodSyntax = dataSource.OrderBy(num => num).ToList();
+
+            foreach(var item in methodSyntax)
             {
-              new Employee() { Id = 1, Name = "Tom", Email = "tom@gmail.com" },
-              new Employee() { Id = 2, Name = "Tom1", Email = "tom1@gmail.com" },
-              new Employee() { Id = 3, Name = "Tom2", Email = "tom2@gmail.com" },
-              new Employee() { Id = 4, Name = "Tom3", Email = "tom3@gmail.com" }
-
-            };
-
-            var selectQuery = (from emp in employees
-                               select new Employee()
-                               {
-                                   Id = emp.Id,
-                                   Name = emp.Name,
-                                   Email = emp.Email,
-                               }).ToList();
-
-            var selectMethod = employees.Select(emp => new Employee()
-            {
-                Id = emp.Id,
-                Name = emp.Name,
-                Email = emp.Email
-            }).ToList();
-
-            var query = employees.Select((emp, index) => new { index = index, Name = emp.Name }).ToList();
-
-            foreach(var item in query)
-            {
-                Console.WriteLine("Name " + item.Name);
+                Console.WriteLine(item);
             }
+            Console.WriteLine("Hello");
 
         }
 
